@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+var errNotSupported = errors.New("daemon: Non-POSIX OS is not supported")
+
 func (d *Context) reborn() (child *os.Process, err error) {
 	return nil, errNotSupported
 }
