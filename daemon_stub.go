@@ -3,8 +3,12 @@
 package daemon
 
 import (
+	"errors"
 	"os"
 )
+
+type Context struct {
+}
 
 var errNotSupported = errors.New("daemon: Non-POSIX OS is not supported")
 
@@ -17,5 +21,5 @@ func (d *Context) search() (daemon *os.Process, err error) {
 }
 
 func (d *Context) release() (err error) {
-	return nil, errNotSupported
+	return errNotSupported
 }
