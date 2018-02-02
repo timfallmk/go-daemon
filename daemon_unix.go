@@ -11,6 +11,10 @@ import (
 	"github.com/kardianos/osext"
 )
 
+func syscred() (cred *syscall.Credential) {
+	return new(syscall.Credential)
+}
+
 func (d *Context) reborn() (child *os.Process, err error) {
 	if !WasReborn() {
 		child, err = d.parent()
@@ -41,13 +45,15 @@ func (d *Context) parent() (child *os.Process, err error) {
 		return
 	}
 
+	cred := syscred()
+
 	attr := &os.ProcAttr{
 		Dir:   d.WorkDir,
 		Env:   d.Env,
 		Files: d.files(),
 		Sys: &syscall.SysProcAttr{
 			//Chroot:     d.Chroot,
-			Credential: d.Credential,
+			Credential: cred,
 			Setsid:     true,
 		},
 	}

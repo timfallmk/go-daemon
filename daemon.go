@@ -1,11 +1,9 @@
-// +build !windows
-
 package daemon
 
 import (
 	"errors"
 	"os"
-	"syscall"
+	_"syscall"
 )
 
 var errNotSupported = errors.New("daemon: Non-POSIX OS is not supported")
@@ -18,6 +16,10 @@ const (
 
 // Default file permissions for log and pid files.
 const FILE_PERM = os.FileMode(0640)
+
+type SysCredential interface {
+	syscred()
+}
 
 // A Context describes daemon context.
 type Context struct {
@@ -49,7 +51,7 @@ type Context struct {
 	Args []string
 
 	// Credential holds user and group identities to be assumed by a daemon-process.
-	Credential *syscall.Credential
+	Credential SysCredential
 	// If Umask is non-zero, the daemon-process call Umask() func with given value.
 	Umask int
 

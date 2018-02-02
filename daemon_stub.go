@@ -3,14 +3,13 @@
 package daemon
 
 import (
-	"errors"
+	_"errors"
 	"os"
 )
 
-type Context struct {
+func syscred() {
+	return
 }
-
-var errNotSupported = errors.New("daemon: Non-POSIX OS is not supported")
 
 func (d *Context) reborn() (child *os.Process, err error) {
 	return nil, errNotSupported
