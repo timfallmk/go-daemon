@@ -12,7 +12,7 @@ import (
 )
 
 func syscred() (cred *syscall.Credential) {
-	return new(syscall.Credential)
+	return nil
 }
 
 func (d *Context) reborn() (child *os.Process, err error) {
